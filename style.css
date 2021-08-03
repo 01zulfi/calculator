@@ -2,3 +2,21 @@ body {
     background-color: black;
     color: white;
 }
+
+.display {
+    font-size: 20px;
+    height: 18vh;
+    width: 50vw;    
+    border: 2px solid white;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    color: white;
+}
+
+.answer {
+    font-size: 45px;
+}
