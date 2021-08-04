@@ -21,6 +21,7 @@ function operate(operator, a, b) {
     if ( operator == '/' ) return divideNum(a, b)
 }
 
+const decimal = document.querySelector('.decimal');
 const buttons = document.querySelectorAll('button');
 buttons.forEach(index => index.addEventListener('click', calculate));
 buttons.forEach(index => index.addEventListener('click', displayNumbers));
@@ -28,13 +29,24 @@ buttons.forEach(index => index.addEventListener('click', displayNumbers));
 let firstValue = '';
 let operator = '';
 let secondValue = '';
-function calculate() {
+function calculate() {  
     if (this.matches('.digit') && !operator) {
-        clearDisplay();
-        firstValue += this.value;
+        if (document.querySelector('.answer')) {
+            clearDisplay(); 
+        }
+        else {
+            firstValue += this.value;
+        }
     }
     if (this.matches('.operator') && firstValue) {
+        if (operator) {
+            let answer = operate(operator, Number(firstValue), Number(secondValue));
+            displayAnswer(answer);
+            clearValues(answer);
+            operator = this.value;
+        } else {
         operator = this.value;
+        }
     }
     if (this.matches('.digit') && operator) {
         secondValue += this.value;
@@ -42,10 +54,9 @@ function calculate() {
     if (this.matches('.equal')) {
         if ( !firstValue || !operator || !secondValue) return
         let answer = operate(operator, Number(firstValue), Number(secondValue));
-        console.log(answer);
         clearDisplay();
         displayAnswer(answer);
-        clearValues();  
+        clearValues(answer);  
     }
     if (this.matches('.clear')) {
         clearValues();
@@ -55,10 +66,14 @@ function calculate() {
     console.log(secondValue)
 }
 
-function clearValues() {
-    firstValue = '';
-    secondValue = '';
+function clearValues(answer, symbol) {
+    if (answer) {
+        firstValue = answer;
+    } else {
+        firstValue = '';
+    }
     operator = '';
+    secondValue = '';
 }
 
 const container = document.querySelector('.display');
@@ -67,11 +82,13 @@ const body = document.querySelector('body');
 function displayNumbers() {
     if (this.value == '=') return
     let p = document.createElement('p');
-    p.textContent = this.value; 
+    p.textContent = this.value;
     container.appendChild(p);
+    checkDecimal(container.textContent)
     if (this.matches('.operator') || this.matches('.clear')) {
         clearDisplay();
     }
+    
 }
 
 function clearDisplay() {
@@ -82,6 +99,27 @@ function clearDisplay() {
 function displayAnswer(answer) {
     let p = document.createElement('p');
     p.classList.add('answer');
-    p.textContent = answer.toString();
+    if (countDecimal(answer) > 5) {
+        p.textContent = answer.toFixed(5).toString();
+    } else {
+        p.textContent = answer.toString();
+    }
     container.appendChild(p);
+}
+
+function countDecimal(number) {
+    let string = number.toString();
+    if (!(string.indexOf('.')==-1)) {
+        let afterPoint = string.substr( string.indexOf('.') );
+        return afterPoint.length
+    } else return 0 
+}
+
+
+function checkDecimal(string) {
+    if ( !(string.indexOf(".") == -1) ) {
+        decimal.disabled = true;
+    } else {
+        decimal.disabled = false;
+    }
 }
