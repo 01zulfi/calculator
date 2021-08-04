@@ -33,6 +33,10 @@ function calculate() {
     if (this.matches('.digit') && !operator) {
         if (document.querySelector('.answer')) {
             clearDisplay(); 
+            const p = document.createElement('p');
+            p.textContent = firstValue;
+            container.appendChild(p)
+            firstValue += this.value;
         }
         else {
             firstValue += this.value;
@@ -54,6 +58,7 @@ function calculate() {
     if (this.matches('.equal')) {
         if ( !firstValue || !operator || !secondValue) return
         let answer = operate(operator, Number(firstValue), Number(secondValue));
+        checkDecimal(answer.toString());
         clearDisplay();
         displayAnswer(answer);
         clearValues(answer);  
@@ -88,7 +93,6 @@ function displayNumbers() {
     if (this.matches('.operator') || this.matches('.clear')) {
         clearDisplay();
     }
-    
 }
 
 function clearDisplay() {
@@ -123,3 +127,4 @@ function checkDecimal(string) {
         decimal.disabled = false;
     }
 }
+
