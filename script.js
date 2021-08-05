@@ -1,3 +1,7 @@
+let firstValue = '';
+let operator = '';
+let secondValue = '';
+
 function addNum(a, b) {
     return a + b
 }
@@ -26,9 +30,7 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(index => index.addEventListener('click', calculate));
 buttons.forEach(index => index.addEventListener('click', displayNumbers));
 
-let firstValue = '';
-let operator = '';
-let secondValue = '';
+
 function calculate() {  
     if (this.matches('.digit') && !operator) {
         if (document.querySelector('.answer')) {
@@ -66,14 +68,15 @@ function calculate() {
     if (this.matches('.clear')) {
         clearValues();
     }
-    console.log(firstValue)
-    console.log(operator)
-    console.log(secondValue)
 }
 
-function clearValues(answer, symbol) {
-    if (answer) {
-        firstValue = answer;
+function clearValues(answer) {
+    if (answer) { 
+        if (countDecimal(answer) > 5) {
+            firstValue = answer.toFixed(5);
+        } else {
+            firstValue = answer;
+        }
     } else {
         firstValue = '';
     }
@@ -118,7 +121,6 @@ function countDecimal(number) {
         return afterPoint.length
     } else return 0 
 }
-
 
 function checkDecimal(string) {
     if ( !(string.indexOf(".") == -1) ) {

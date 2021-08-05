@@ -1,22 +1,92 @@
 body {
-    background-color: black;
+    background-color: rgb(53,56,57);
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 8vh;
+    font-family: "Staatliches", sans-serif;
+    color: white;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 10px solid rgb(54, 69, 79);
 }
 
 .display {
-    font-size: 20px;
-    height: 18vh;
-    width: 50vw;    
-    border: 2px solid white;
-    margin-bottom: 20px;
+    padding: 5px;
+    height: 10vh;
+    border: 10px solid 	rgb(40, 40, 43);
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 p {
-    color: white;
+    color: black;
+    font-size: 6vh;
+    font-family: "Press Start 2P", sans-serif;
 }
 
-.answer {
-    font-size: 45px;
+.buttons {
+    height: 40vh;   
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
 }
+
+.gridOne {
+    width: 20vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.gridOne :hover{
+    background-color: rgba(10, 10, 10, 0.5);
+    box-shadow: 3px 3px black;
+}
+
+.gridTwo {
+    width: fit-content; 
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.gridTwo :hover {
+    background-color: rgba(10, 10, 10, 0.5);
+    box-shadow: 3px 3px black;
+}
+
+.gridOneButtons {
+    color: white;
+    font-size: 5vh;
+    font-family: "Anton", sans-serif;
+    border-radius: 2px;
+    margin: 5px;
+    border: 1px solid rgb(102, 82, 82, 0.2);
+    background-color: rgb(65,74,76, 0.7);
+}
+
+.gridTwoButtons {
+    color: white;
+    font-size: 3vh;
+    font-weight: bolder;
+    margin: 2px;
+    border: 1px solid rgba(15, 14, 14, 0.3);
+    background-color: rgb(100, 100, 100);
+}
+
+.clear { 
+    background-color: rgb(0,0,0, 0.5);
+}
+
+
